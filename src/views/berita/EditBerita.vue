@@ -45,60 +45,50 @@ import api from "../../api";
 </script>
 
 <template>
-    <div class="container mt-5 mx-auto max-w-4xl">
-        <div class="row">
-            <div class="col-md-12">
-            <div class="card border-0 rounded-lg shadow-lg">
-                <div class="card-body p-8 bg-white">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">Edit Berita</h2>
-                <form @submit.prevent="updateBerita">
-                    <div class="mb-6">
-                    <label for="image" class="block mb-2 text-gray-700 font-bold">Image</label>
-                    <input type="file" id="image" @change="handleFileChange" class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
-                    <div v-if="errors.image" class="mt-2 text-red-600">
+    <section class="max-w-3xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-soft p-8">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Edit Berita</h2>
+            <form @submit.prevent="updateBerita" class="space-y-6">
+                <div>
+                    <label for="image" class="block mb-2 text-gray-700 font-medium">Image</label>
+                    <input type="file" id="image" @change="handleFileChange" class="block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    <div v-if="errors.image" class="mt-2 text-red-600 text-sm">
                         <span>{{ errors.image[0] }}</span>
                     </div>
-                    </div>
-                    <div class="mb-6">
-                    <label for="title" class="block mb-2 text-gray-700 font-bold">Title <span class="text-red-500">*</span></label>
-                    <input type="text" id="title" v-model="title" placeholder="Title Post" class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
-                    <div v-if="errors.title" class="mt-2 text-red-600">
+                </div>
+                <div>
+                    <label for="title" class="block mb-2 text-gray-700 font-medium">Title <span class="text-red-500">*</span></label>
+                    <input type="text" id="title" v-model="title" placeholder="Title Post" class="block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+                    <div v-if="errors.title" class="mt-2 text-red-600 text-sm">
                         <span>{{ errors.title[0] }}</span>
                     </div>
-                    </div>
-                    <div class="mb-6">
-                    <label for="slug" class="block mb-2 text-gray-700 font-bold">Slug <span class="text-red-500">*</span></label>
-                    <input type="text" id="slug" v-model="slug" placeholder="Slug Post" class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
-                    <div v-if="errors.slug" class="mt-2 text-red-600">
+                </div>
+                <div>
+                    <label for="slug" class="block mb-2 text-gray-700 font-medium">Slug <span class="text-red-500">*</span></label>
+                    <input type="text" id="slug" v-model="slug" placeholder="Slug Post" class="block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+                    <div v-if="errors.slug" class="mt-2 text-red-600 text-sm">
                         <span>{{ errors.slug[0] }}</span>
                     </div>
-                    </div>
-                    <div class="mb-6">
-                    <label for="excerpt" class="block mb-2 text-gray-700 font-bold">Excerpt <span class="text-red-500">*</span></label>
-                    <input type="text" id="excerpt" v-model="excerpt" placeholder="Excerpt Post" class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
-                    <div v-if="errors.excerpt" class="mt-2 text-red-600">
+                </div>
+                <div>
+                    <label for="excerpt" class="block mb-2 text-gray-700 font-medium">Excerpt <span class="text-red-500">*</span></label>
+                    <input type="text" id="excerpt" v-model="excerpt" placeholder="Excerpt Post" class="block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+                    <div v-if="errors.excerpt" class="mt-2 text-red-600 text-sm">
                         <span>{{ errors.excerpt[0] }}</span>
                     </div>
-                    </div>
-                    <div class="mb-6">
-                    <label for="content" class="block mb-2 text-gray-700 font-bold">Content <span class="text-red-500">*</span></label>
-                    <textarea id="content" v-model="content" rows="5" placeholder="Content Post" class="block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent required"></textarea>
-                    <div v-if="errors.content" class="mt-2 text-red-600">
+                </div>
+                <div>
+                    <label for="content" class="block mb-2 text-gray-700 font-medium">Content <span class="text-red-500">*</span></label>
+                    <textarea id="content" v-model="content" rows="5" placeholder="Content Post" class="block w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent required"></textarea>
+                    <div v-if="errors.content" class="mt-2 text-red-600 text-sm">
                         <span>{{ errors.content[0] }}</span>
                     </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div>
-                            <router-link :to="{ name: 'berita.index' }" class="bg-gray-500 hover:bg-gray-700 text-white px-6 py-2 rounded-lg shadow-sm">Back</router-link>
-                        </div>
-                        <div>
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg shadow-sm">Save</button>
-                        </div>
-                    </div>
-                </form>
                 </div>
-            </div>
-            </div>
+                <div class="flex justify-between">
+                    <router-link :to="{ name: 'berita.index' }" class="px-6 py-2 rounded-xl bg-gray-600 text-white hover:bg-gray-700">Back</router-link>
+                    <button type="submit" class="px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700">Save</button>
+                </div>
+            </form>
         </div>
-    </div>
+    </section>
 </template>

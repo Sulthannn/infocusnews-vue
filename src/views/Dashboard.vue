@@ -17,41 +17,44 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="container mx-auto px-8">
-
-    <div v-if="berita.length > 0">
-      
-      <div class="flex justify-start items-start py-8 mb-8">
-        <div class="flex items-start">
-          <img :src="berita[0].image" alt="Berita Terbaru" class="w-1/3 object-cover object-center rounded-xl transition-transform duration-300 transform hover:scale-105 mr-8">
-          <h2 class="font-serif text-3xl font-bold text-gray-800 cursor-pointer transition-colors duration-300 hover:text-gray-600 mt-20 pr-52">{{ berita[0].title }}</h2>
+  <div>
+    <div v-if="berita.length > 0" class="space-y-10">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div class="lg:col-span-2 group relative overflow-hidden rounded-2xl shadow-soft">
+          <img :src="berita[0].image" alt="Berita Terbaru" class="w-full h-80 md:h-96 object-cover object-center transition-transform duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <h2 class="absolute bottom-4 left-4 right-4 text-white text-2xl md:text-3xl font-bold drop-shadow-lg">
+            {{ berita[0].title }}
+          </h2>
         </div>
-      </div>
-
-      <div class="mb-8 text-center">
-        <input type="text" class="w-1/3 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-red-700 transition-colors duration-300" placeholder="Looking for news...">
-      </div>
-      <div class="flex justify-between items-center mb-10">
-        <h2 class="text-xl font-bold text-gray-800 text-left">MORE NEWS</h2>
-        <a href="#" class="text-red-500 font-medium hover:no-underline mr-4">See All</a>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div v-for="(news, index) in berita.slice(1)" :key="index" class="bg-white rounded-lg shadow-md overflow-hidden mb-8 relative cursor-pointer">
-          <img :src="news.image" alt="Berita Image" class="w-full h-72 object-cover object-center transition-transform duration-200 transform hover:scale-105 ">
-          <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-gray-800 bg-opacity-75 text-white p-4">
-            <h3 class="text-lg font-semibold mb-2 hover:text-gray-300">{{ news.title }}</h3>
+        <div class="space-y-4">
+          <input type="text" placeholder="Search news..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+          <div class="bg-white rounded-2xl p-5 shadow-soft">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold text-gray-800">More News</h3>
+              <router-link :to="{ name: 'berita.index' }" class="text-primary-600 hover:text-primary-700 text-sm">See All</router-link>
+            </div>
+            <ul class="mt-4 space-y-3">
+              <li v-for="(n, i) in berita.slice(1, 6)" :key="i" class="text-sm text-gray-700 line-clamp-2">{{ n.title }}</li>
+            </ul>
           </div>
         </div>
       </div>
 
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <article v-for="(news, index) in berita.slice(1)" :key="index" class="group bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-lg transition-shadow">
+          <div class="relative overflow-hidden">
+            <img :src="news.image" alt="Berita Image" class="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-gray-900 line-clamp-2">{{ news.title }}</h3>
+          </div>
+        </article>
+      </div>
     </div>
 
-  </main>
-
-  <footer class="text-center py-4">
-    <hr class="border-gray-300 my-4">
-    <p class="text-gray-500 text-sm mt-2">&copy; Sulthan Izza Falqahi</p>
-  </footer>
+    <div v-else class="text-center text-gray-500 py-20">No news available.</div>
+  </div>
 
 </template>
