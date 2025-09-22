@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const Api = axios.create({
-    baseURL: 'http://127.0.0.1:8000'
+    baseURL: 'http://infocus-news-api-master-6bwklg.laravel.cloud'
 })
+
 export default Api
