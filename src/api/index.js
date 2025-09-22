@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 const Api = axios.create({
-    baseURL: 'https://laravelapi-production-cb4a.up.railway.app'
+    baseURL: 'http://127.0.0.1:8000'
 })
 export default Api
